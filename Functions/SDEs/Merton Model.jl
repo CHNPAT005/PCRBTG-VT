@@ -1,19 +1,14 @@
 ## Author: Patrick Chang
 # Script file to simulate multivariate Merton Model
-# includes an example to demonstrate the code
 
-#------------------------------------------------------------------------------
+## Preamble
+
+using Random, LinearAlgebra, Distributions, PoissonRandom
 
 ## Building the Merton Model using the method of Paul Glasserman in his book
 #   Monte Carlo Methods in Financial Engineering
 #   This method allows me to build the path in 1 unit time increments
 #   and there is no compensator in this method
-
-using Random
-using LinearAlgebra
-using Distributions
-using PoissonRandom
-using Plots
 
 function Merton(n, mu, sigma, lambda, a, b; kwargs...)
     # n - simulation length
@@ -73,34 +68,3 @@ function Merton(n, mu, sigma, lambda, a, b; kwargs...)
     end
     return exp.(X)
 end
-
-#------------------------------------------------------------------------------
-
-# n = 500
-# mu = [0.01/86400, 0.01/86400]
-# sigma = [0.1/86400 sqrt(0.1/86400)*0.35*sqrt(0.2/86400);
-#         sqrt(0.1/86400)*0.35*sqrt(0.2/86400) 0.2/86400]
-# a = [0.0, 0.0]
-# b= [100/86400, 100/86400]
-# lambda = [0.2, 1]
-#
-# P1 = Merton(n, mu, sigma, lambda, a, b)
-# P2 = Merton(n, mu, sigma, lambda, a, b, seed = 2)
-#
-# # important thing to note about plotting is that [mxn] matrix is m series with n data points
-# p1 = plot(1:n, P1, label = ["Line 1" "Line 2"])
-# title!(p1, "Correlated Merton Model")
-# xlabel!(p1, "Seconds")
-# ylabel!(p1, "Price")
-#
-# p2 = plot(1:n, P2, label = ["Line 1" "Line 2"])
-# title!(p2, "Correlated Merton Model")
-# xlabel!(p2, "Seconds")
-# ylabel!(p2, "Price")
-#
-# plot(p1, p2, layout = (1,2), legend = false, lw = 2)
-#
-# #plt = plot(1, P[1,:], xlim = (0,500), ylim = (94, 102), title = "Correlated GBM", legend = false)
-# @gif for i in 1:500
-#     plot(1:i, P1[1:i,:], xlim = (0,500), ylim = (94, 102), title = "Correlated Merton Model", legend = false)
-# end every 10
