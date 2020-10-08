@@ -16,7 +16,7 @@ function VG(n, μ, Σ, β; kwargs...)
     # sigma - covariance matrix of the stocks
     # beta - scale for gamma
 
-    k = size(sigma)[1]
+    k = size(Σ)[1]
 
     kwargs = Dict(kwargs)
 
@@ -43,7 +43,7 @@ function VG(n, μ, Σ, β; kwargs...)
     for i in 2:n
         z = Z[:,i-1]
         y = Y[:,i-1]
-        P[i,:] = P[i-1,:] + μ .* y + cholesky(sigma).L * (sqrt.(y).*z)
+        P[i,:] = P[i-1,:] + μ .* y + cholesky(Σ).L * (sqrt.(y).*z)
     end
 
     return P
