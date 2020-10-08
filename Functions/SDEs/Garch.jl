@@ -59,16 +59,8 @@ function Garch(n, θ, λ, ω, ρ; kwargs...)
 
     for i in 2:n
         Σ = [Sigma2[1,i] sqrt(Sigma2[1,i] * Sigma2[2,i])*ρ; sqrt(Sigma2[1,i] * Sigma2[2,i])*ρ Sigma2[2,i]]
-        P[i,:] = cholesky(sigma).L * Z[1:2, i-1] / sqrt(dt) + P[i-1,:]
+        P[i,:] = cholesky(Σ).L * Z[1:2, i-1] / sqrt(dt) + P[i-1,:]
     end
 
     return exp.(P)
 end
-
-theta = [0.035, 0.054]
-lambda = [0.296, 0.48]
-w = [0.636, 0.476]
-
-P = Garch(n, theta, lambda, w, 0.35)
-
-NUFFTcorrDKFGG(P, t)[1]

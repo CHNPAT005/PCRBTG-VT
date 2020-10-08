@@ -1,8 +1,9 @@
 ## Author: Patrick Chang
-# Script file to investigate the effect of jumps.
+# Script file to investigate the effect of
+# 1) Volatility clustering using a GARCH(1,1), and
+# 2) Mean reversion using a Ornstein Uhlenbeck process
 # Here we look at both the synchronous and asynchronous case
 # with the asynchronous case induced by down-sampling 20%.
-# Here we look at the Merton and Variance Gamma
 
 ## Preamble
 
@@ -15,14 +16,13 @@ include("../Functions/Correlation Estimators/Dirichlet/NUFFTcorrDK-FGG.jl")
 include("../Functions/Correlation Estimators/HY/HYcorr.jl")
 
 # SDE
-include("../Functions/SDEs/Merton Model.jl")
-include("../Functions/SDEs/Variance Gamma.jl")
+include("../Functions/SDEs/Garch.jl")
+include("../Functions/SDEs/OU.jl")
 
-## Function to streamline the process
-# The function uses a Merten model with λ
-# as a varying input. Here for the asynchronous Case
-# we down-sample using 20%.
-function Jumps(num, λ)
+## Fucntion to strealine the process
+# The function uses a GARCH(1,1) process.
+# Asynchrony is achieved by down-sampling by 20%.
+function VolClust(num)
     # Setup
     cor = range(-0.99, 0.99, length = num)
     MM = zeros(num, 1)
@@ -30,17 +30,14 @@ function Jumps(num, λ)
     MMasyn = zeros(num, 1)
     HYasyn = zeros(num, 1)
     # Parameters
-    μ = [0.01/86400, 0.01/86400]
-    σ1 = 0.1/86400; σ2 = 0.2/86400
-    a = [0,0]
-    b = [100/86400, 100/86400]
-    lambda = [λ, λ]
+    θ = [0.035, 0.054]
+    λ = [0.296, 0.48]
+    ω = [0.636, 0.476]
     seed = 1:num
     # Run through each case
     @showprogress "Computing..." for i in 1:num
-        # Simulate the Merton model
-        Σ = [σ1 sqrt(σ1*σ2)*cor[i]; sqrt(σ1*σ2)*cor[i] σ2]
-        p = Merton(10000, μ, Σ, lambda, a, b; seed = seed[i])
+        # Simulate the GARCH
+        p = Garch(10000, θ, λ, ω, cor[i]; seed = seed[i])
         t = [collect(1:1:10000.0) collect(1:1:10000.0)]
         # Compute the correlation
         MM[i] = NUFFTcorrDKFGG(p, t)[1][1,2]
@@ -59,9 +56,9 @@ function Jumps(num, λ)
     return MM, HY, MMasyn, HYasyn
 end
 
-# The function uses a Variance Gamma model.
-# Again the asynchronous cases we down-sample using 20%.
-function PureJumps(num)
+# The function uses an OU process.
+# Asynchrony is achieved by down-sampling by 20%.
+function MeanRev(num)
     # Setup
     cor = range(-0.99, 0.99, length = num)
     MM = zeros(num, 1)
@@ -69,15 +66,16 @@ function PureJumps(num)
     MMasyn = zeros(num, 1)
     HYasyn = zeros(num, 1)
     # Parameters
-    μ = [0.01/86400, 0.01/86400]
-    σ1 = 0.1/86400; σ2 = 0.2/86400
-    β = 1
+    μ = [100, 100]
+    σ1 = 0.1/86400
+    σ2 = 0.2/86400
+    θ = [0.035, 0.054]
     seed = 1:num
     # Run through each case
     @showprogress "Computing..." for i in 1:num
-        # Simulate the VG
+        # Simulate the GARCH
         Σ = [σ1 sqrt(σ1*σ2)*cor[i]; sqrt(σ1*σ2)*cor[i] σ2]
-        p = VG(10000, μ, Σ, β; seed = seed[i])
+        p = OU(10000, μ, Σ, θ; seed = seed[i])
         t = [collect(1:1:10000.0) collect(1:1:10000.0)]
         # Compute the correlation
         MM[i] = NUFFTcorrDKFGG(p, t)[1][1,2]
@@ -97,24 +95,18 @@ function PureJumps(num)
 end
 
 ## Compute the results
-# Case with λ = 0
-res1 = Jumps(21, 0)
+# Case with GARCH(1,1)
+res1 = VolClust(21)
 
-# Case with λ = 0.2
-res2 = Jumps(21, 0.2)
-
-# Case with λ = 0.5
-res3 = Jumps(21, 0.5)
-
-# Case with pure jumps (Vairance Gamma)
-res4 = PureJumps(21)
+# Case with OU
+res2 = MeanRev(21)
 
 ## Save the results
-save("Computed Data/Jumps.jld", "res1", res1, "res2", res2, "res3", res3, "res4", res4)
+save("Computed Data/Reversion.jld", "res1", res1, "res2", res2)
 
 ## Load the results
-res = load("Computed Data/Jumps.jld")
-res1 = res["res1"]; res2 = res["res2"]; res3 = res["res3"]; res4 = res["res4"]
+res = load("Computed Data/Reversion.jld")
+res1 = res["res1"]; res2 = res["res2"]
 
 ## Plot the results
 
@@ -125,7 +117,7 @@ plot!(p1, 1:21, res1[3], label = "MM Asyn", color = :purple, linestyle = :dash)
 plot!(p1, 1:21, res1[4], label = "HY Asyn", color = :orange, linestyle = :dashdot)
 ylabel!(p1, L"\textrm{Correlation }(\rho)")
 xlabel!(p1, L"\textrm{Simulation}")
-# savefig(p1, "Plots/Jumps0.svg")
+# savefig(p1, "Plots/RevGarch.svg")
 
 p2 = plot(1:21, range(-0.99, 0.99, length = 21), legend = :topleft, label = "Induced", color = :black, linestyle = :dot, dpi = 300)
 plot!(p2, 1:21, res2[1], label = "MM Syn", color = :blue, linestyle = :dash)
@@ -134,22 +126,4 @@ plot!(p2, 1:21, res2[3], label = "MM Asyn", color = :purple, linestyle = :dash)
 plot!(p2, 1:21, res2[4], label = "HY Asyn", color = :orange, linestyle = :dashdot)
 ylabel!(p2, L"\textrm{Correlation }(\rho)")
 xlabel!(p2, L"\textrm{Simulation}")
-# savefig(p2, "Plots/Jumps2.svg")
-
-p3 = plot(1:21, range(-0.99, 0.99, length = 21), legend = :topleft, label = "Induced", color = :black, linestyle = :dot, dpi = 300)
-plot!(p3, 1:21, res3[1], label = "MM Syn", color = :blue, linestyle = :dash)
-plot!(p3, 1:21, res3[2], label = "HY Syn", color = :red, linestyle = :dashdot)
-plot!(p3, 1:21, res3[3], label = "MM Asyn", color = :purple, linestyle = :dash)
-plot!(p3, 1:21, res3[4], label = "HY Asyn", color = :orange, linestyle = :dashdot)
-ylabel!(p3, L"\textrm{Correlation }(\rho)")
-xlabel!(p3, L"\textrm{Simulation}")
-# savefig(p3, "Plots/Jumps5.svg")
-
-p4 = plot(1:21, range(-0.99, 0.99, length = 21), legend = :topleft, label = "Induced", color = :black, linestyle = :dot, dpi = 300)
-plot!(p4, 1:21, res4[1], label = "MM Syn", color = :blue, linestyle = :dash)
-plot!(p4, 1:21, res4[2], label = "HY Syn", color = :red, linestyle = :dashdot)
-plot!(p4, 1:21, res4[3], label = "MM Asyn", color = :purple, linestyle = :dash)
-plot!(p4, 1:21, res4[4], label = "HY Asyn", color = :orange, linestyle = :dashdot)
-ylabel!(p4, L"\textrm{Correlation }(\rho)")
-xlabel!(p4, L"\textrm{Simulation}")
-# savefig(p4, "Plots/JumpsPure.svg")
+# savefig(p2, "Plots/RevOU.svg")

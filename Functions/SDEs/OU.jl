@@ -34,7 +34,7 @@ function OU(n, μ, Σ, θ; kwargs...)
     Z = randn(k, n-1)
 
     for i in 2:n
-        P[i,:] = P[i-1,:] + θ .* (log.(μ) .- P[i-1,:]) + cholesky(sigma).L * Z[:,i-1]
+        P[i,:] = P[i-1,:] + θ .* (log.(μ) .- P[i-1,:]) + cholesky(Σ).L * Z[:,i-1]
     end
 
     return exp.(P)
