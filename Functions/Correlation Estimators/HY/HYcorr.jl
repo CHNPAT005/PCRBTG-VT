@@ -59,3 +59,18 @@ function HYcorr(p1, p2, t1, t2)
 
     return rho, Sigma, var
 end
+
+function HYcorrFull(p, t)
+    # Get size of matrix
+    D = size(p)[2]
+    ρ = zeros(D, D)
+    # Loop through matrix
+    for i in 1:(D-1)
+        for j in (i+1):D
+            res = HYcorr(p[:,i], p[:,j], t[:,i], t[:,j])
+            ρ[i,i] = res[1][1,1]; ρ[j,j] = res[1][2,2]
+            ρ[i,j] = res[1][1,2]; ρ[j,i] = res[1][2,1]
+        end
+    end
+    return ρ
+end
