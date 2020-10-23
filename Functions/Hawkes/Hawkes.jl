@@ -185,35 +185,6 @@ function Intensity(index, time, history, lambda0, alpha, beta)
     return l
 end
 
-# Construct Prices from the simulation paths
-function getPrices(P0, uptick, downtick)
-    alltimes = [uptick; downtick]
-    alltimes = sort(alltimes)
-
-    P = []
-    for i in 1:length(alltimes)
-        up = findall(uptick .<= alltimes[i])
-        down = findall(downtick .<= alltimes[i])
-        p = P0 + length(up) - length(down)
-        P = append!(P, p)
-    end
-    return P, alltimes
-end
-
-# Construct uniformly sampled prices from the simulation paths
-function getuniformPrices(P0, τ, T, uptick, downtick)
-    t = collect(0:τ:T)
-    n = length(t)
-    P = zeros(n,1)
-
-    for i in 1:n
-        up = findall(uptick .<= t[i])
-        down = findall(downtick .<= t[i])
-        P[i] = P0 + length(up) - length(down)
-    end
-    return P
-end
-
 #---------------------------------------------------------------------------
 ### CALIBRATION
 #---------------------------------------------------------------------------
@@ -334,55 +305,4 @@ function BarcyParams(μ, α_12, α_13, β)
     beta[1,3]=beta[3,1]=beta[2,4]=beta[4,2] = β
 
     return lambda0, alpha, beta
-end
-
-# Function to convert prices and times from the function
-# getPrices() into the required form for the MM estimator
-function price2MMform(args...)
-    n = []
-    for args in args
-        n = append!(n, length(args[1]))
-    end
-
-    d = length(args)
-    nn = maximum(n)
-    p = fill(NaN, (nn,d))
-    t = fill(NaN, (nn,d))
-
-    i = 1
-    for args in args
-        p[1:n[i],i] = args[1]
-        t[1:n[i],i] = args[2]
-        i = i+1
-    end
-    return p, t
-end
-
-function EventTimePrice(P1, P2, P01, P02)
-    t1 = P1[2]; t2 = P2[2]
-    P1 = P1[1]
-    P2 = P2[1]
-    t = [0;t1;t2]
-    t = sort(t)
-    n = length(t)
-    p1 = zeros(n)
-    p2 = zeros(n)
-    p1[1] = P01
-    p2[1] = P02
-    i_1 = 0
-    i_2 = 0
-
-    for i in 2:n
-        if in(t[i], t1)
-            i_1 = i_1 + 1
-            p1[i] = P1[i_1]
-            p2[i] = p2[i-1]
-        else
-            i_2 = i_2 + 1
-            p2[i] = P2[i_2]
-            p1[i] = p1[i-1]
-        end
-    end
-
-    return [p1 p2], collect(0:1:n-1)
 end

@@ -166,65 +166,65 @@ end
 
 ## Closing:
 # MM
-plot(MMClosing1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMClosing1hr)[1], digits = 4)) \\pm $(round(summarise(MMClosing1hr)[2], digits = 4)) \$"), :left, 20)))
+plot(MMClosing1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMClosing1hr)[1], digits = 4)) \\pm $(round(summarise(MMClosing1hr)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMClosing1hr.png")
 
-plot(MMClosing10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMClosing10min)[1], digits = 4)) \\pm $(round(summarise(MMClosing10min)[2], digits = 4)) \$"), :left, 20)))
+plot(MMClosing10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMClosing10min)[1], digits = 4)) \\pm $(round(summarise(MMClosing10min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMClosing10min.png")
 
-plot(MMClosing1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMClosing1min)[1], digits = 4)) \\pm $(round(summarise(MMClosing1min)[2], digits = 4)) \$"), :left, 20)))
+plot(MMClosing1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMClosing1min)[1], digits = 4)) \\pm $(round(summarise(MMClosing1min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMClosing1min.png")
 
 # HY
-plot(HYClosing1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYClosing1hr)[1], digits = 4)) \\pm $(round(summarise(HYClosing1hr)[2], digits = 4)) \$"), :left, 20)))
+plot(HYClosing1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYClosing1hr)[1], digits = 4)) \\pm $(round(summarise(HYClosing1hr)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYClosing1hr.png")
 
-plot(HYClosing10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYClosing10min)[1], digits = 4)) \\pm $(round(summarise(HYClosing10min)[2], digits = 4)) \$"), :left, 20)))
+plot(HYClosing10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYClosing10min)[1], digits = 4)) \\pm $(round(summarise(HYClosing10min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYClosing10min.png")
 
-plot(HYClosing1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYClosing1min)[1], digits = 4)) \\pm $(round(summarise(HYClosing1min)[2], digits = 4)) \$"), :left, 20)))
+plot(HYClosing1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYClosing1min)[1], digits = 4)) \\pm $(round(summarise(HYClosing1min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYClosing1min.png")
 
 ## VWAP
 # MM
-plot(MMVWAP1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMVWAP1hr)[1], digits = 4)) \\pm $(round(summarise(MMVWAP1hr)[2], digits = 4)) \$"), :left, 20)))
+plot(MMVWAP1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMVWAP1hr)[1], digits = 4)) \\pm $(round(summarise(MMVWAP1hr)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMVWAP1hr.png")
 
-plot(MMVWAP10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMVWAP10min)[1], digits = 4)) \\pm $(round(summarise(MMVWAP10min)[2], digits = 4)) \$"), :left, 20)))
+plot(MMVWAP10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMVWAP10min)[1], digits = 4)) \\pm $(round(summarise(MMVWAP10min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMVWAP10min.png")
 
-plot(MMVWAP1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMVWAP1min)[1], digits = 4)) \\pm $(round(summarise(MMVWAP1min)[2], digits = 4)) \$"), :left, 20)))
+plot(MMVWAP1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMVWAP1min)[1], digits = 4)) \\pm $(round(summarise(MMVWAP1min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMVWAP1min.png")
 
 # HY
-plot(HYVWAP1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYVWAP1hr)[1], digits = 4)) \\pm $(round(summarise(HYVWAP1hr)[2], digits = 4)) \$"), :left, 20)))
+plot(HYVWAP1hr, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYVWAP1hr)[1], digits = 4)) \\pm $(round(summarise(HYVWAP1hr)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYVWAP1hr.png")
 
-plot(HYVWAP10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYVWAP10min)[1], digits = 4)) \\pm $(round(summarise(HYVWAP10min)[2], digits = 4)) \$"), :left, 20)))
+plot(HYVWAP10min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYVWAP10min)[1], digits = 4)) \\pm $(round(summarise(HYVWAP10min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYVWAP10min.png")
 
-plot(HYVWAP1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYVWAP1min)[1], digits = 4)) \\pm $(round(summarise(HYVWAP1min)[2], digits = 4)) \$"), :left, 20)))
+plot(HYVWAP1min, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYVWAP1min)[1], digits = 4)) \\pm $(round(summarise(HYVWAP1min)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYVWAP1min.png")
 
 ## TAQ
 # MM
-plot(MMTAQ, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(MMTAQ)[1], digits = 4)) \\pm $(round(summarise(MMTAQ)[2], digits = 4)) \$"), :left, 20)))
+plot(MMTAQ, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMTAQ)[1], digits = 4)) \\pm $(round(summarise(MMTAQ)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/MMTAQ.png")
 
 # HY
-plot(HYTAQ, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
-plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho_{ij}|} = $(round(summarise(HYAQ)[1], digits = 4)) \\pm $(round(summarise(HYAQ)[2], digits = 4)) \$"), :left, 20)))
+plot(HYTAQ, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
+plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(HYTAQ)[1], digits = 4)) \\pm $(round(summarise(HYTAQ)[2], digits = 4)) \$"), :left, 20)))
 # savefig("Plots/HYTAQ.png")
