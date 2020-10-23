@@ -81,18 +81,18 @@ function summarise(ρ)
     return mean(res), std(res)
 end
 
-## Closing:
+## Volume Time:
 # 8 buckets
 plot(MMVB8, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
 plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMVB8)[1], digits = 4)) \\pm $(round(summarise(MMVB8)[2], digits = 4)) \$"), :left, 20)))
-# savefig("Plots/MMClosing1hr.png")
+# savefig("Plots/VB8.png")
 
 # 48 buckets
 plot(MMVB48, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
 plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMVB48)[1], digits = 4)) \\pm $(round(summarise(MMVB48)[2], digits = 4)) \$"), :left, 20)))
-# savefig("Plots/MMClosing1hr.png")
+# savefig("Plots/VB48.png")
 
 # 480 buckets
 plot(MMVB480, st=:heatmap, clim=(-1,1), color=cgrad([:blue, :green, :yellow, :orange, :red]), colorbar_title=L"\rho^{ij}", xticks = (1:10, tickers), yticks = (1:10, tickers), dpi = 300, size = (800, 700), tickfontsize = 15)
 plot!(annotations=(5, 4, Plots.text(latexstring("\$\\overline{|\\rho^{ij}|} = $(round(summarise(MMVB480)[1], digits = 4)) \\pm $(round(summarise(MMVB480)[2], digits = 4)) \$"), :left, 20)))
-# savefig("Plots/MMClosing10min.png")
+# savefig("Plots/VB480.png")
