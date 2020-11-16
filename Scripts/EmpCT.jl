@@ -200,7 +200,7 @@ ylabel!(L"\tilde{\rho}_{\Delta t}^{ij}")
 savefig("Plots/EmpCTRV.svg")
 
 
-plot(dt, repeat([NaN], 300), legend = :topright, ylims = (0,0.65), label = "")
+plot(dt, repeat([NaN], 300), legend = :topright, ylims = (0,0.82), label = "")
 hline!(res[3]', palette = ColorSchemes.tab10.colors, label = pairnames)
 xlabel!(L"\textrm{Sampling interval (calendar time)}")
 ylabel!(L"\tilde{\rho}_{\Delta t}^{ij}")
