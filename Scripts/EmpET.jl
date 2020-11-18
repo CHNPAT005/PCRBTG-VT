@@ -127,7 +127,7 @@ function MakeRVData(data, Δt)
     end
     return PTI
 end
-# Function to get the calendar time correlations
+# Function to get the event time correlations
 function getETcorrs(tickers; P=prices, t=times, V=volume)
     # Compute the number of pairwise comparisons
     npairs = Int(factorial(length(tickers)) / (factorial(2) * factorial(length(tickers)-2)))

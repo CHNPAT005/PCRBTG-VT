@@ -85,7 +85,7 @@ function MakeRVData(data, Δt; T = 28200)
     end
     return P
 end
-# Function to get the calendar time correlations
+# Function to get the volume time correlations
 function getVTcorrs(tickers; P=prices, t=times, V=volume)
     # Compute the number of pairwise comparisons
     npairs = Int(factorial(length(tickers)) / (factorial(2) * factorial(length(tickers)-2)))
