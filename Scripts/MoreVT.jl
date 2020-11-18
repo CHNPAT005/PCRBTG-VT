@@ -286,9 +286,3 @@ plot!(p2, dt, mean(res[9], dims=1)', ribbon = (q .* std(res[6], dims=1)'), filla
 xlabel!(p2, L"\textrm{Sampling interval (volume time)}")
 ylabel!(p2, L"\tilde{\rho}_{\Delta t}^{ij}")
 savefig(p2, "Plots/MoreVT.svg")
-
-
-# hline!(p3, [ρ], color = :black, line=(2, [:dot]), label = L"\textrm{Limiting } \rho")
-# xlabel!(p3, L"\textrm{Sampling interval (volume time)}")
-# ylabel!(p3, L"\tilde{\rho}_{\Delta t}^{ij}")
-# savefig(p3, "Plots/SimVT.svg")

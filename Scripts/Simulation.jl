@@ -293,12 +293,11 @@ function getVolumeTimeCorrelations(Asset1, Asset2, dt, T, seed)
         tempdata = VolumeTimePrice(Asset1, Asset2, Int(floor(T/dt[i])), seed)
         t = [collect(1:1:size(tempdata)[1]) collect(1:1:size(tempdata)[1])]
         # Compute the results
-        # MM[i] = NUFFTcorrDKFGG(exp.(tempdata), t)[1][1,2]
+        MM[i] = NUFFTcorrDKFGG(exp.(tempdata), t)[1][1,2]
         RVest[i] = RV(exp.(tempdata))[1][1,2]
-        # HY[i] = HYcorr(exp.(tempdata[:,1]), exp.(tempdata[:,2]), t[:,1], t[:,2])[1][1,2]
+        HY[i] = HYcorr(exp.(tempdata[:,1]), exp.(tempdata[:,2]), t[:,1], t[:,2])[1][1,2]
     end
-    # return MM, RVest, HY
-    return RVest
+    return MM, RVest, HY
 end
 
 # Function to strealine everything together
@@ -327,7 +326,7 @@ function getRes(reps)
         # Obtain the results
         CalendarTimeRes = getCalendarTimeCorrelations(t, CTMMHYData, domain, T)
         EventTimeRes = getEventTimeCorrelations(ETRVData, ETMMHYData, domain)
-        VolumeTimeRes = getVolumeTimeCorrelations(makePrices(0, t[1], t[2]), makePrices(0, t[3], t[4]), domain, T)
+        VolumeTimeRes = getVolumeTimeCorrelations(makePrices(0, t[1], t[2]), makePrices(0, t[3], t[4]), domain, T, seeds[i])
         # Store the results
         MMCT[i,:] = CalendarTimeRes[1]; RVCT[i,:] = CalendarTimeRes[2]; HYCT[i] = CalendarTimeRes[3]
         MMET[i,:] = EventTimeRes[1]; RVET[i,:] = EventTimeRes[2]; HYET[i] = EventTimeRes[3]
@@ -335,39 +334,6 @@ function getRes(reps)
     end
     return MMCT, RVCT, HYCT, MMET, RVET, HYET, MMVT, RVVT, HYVT
 end
-
-function getRes(reps)
-    # Set up parameters
-    T = 3600*20
-    par_1 = BarcyParams(0.015, 0.023, 0.05, 0.11)
-    lambda0_1 = par_1[1]; alpha_1 = par_1[2]; beta_1 = par_1[3]
-    domain = collect(1:1:100)
-    Random.seed!(2020)
-    seeds = Int.(floor.(rand(reps) .* 1000000))
-    # Initialize storage variables
-    RVVT = zeros(reps, length(domain))
-    # Loop through the different cases
-    @showprogress "Computing..." for i in 1:reps
-        # Simulate the processs
-        t = simulateHawkes(lambda0_1, alpha_1, beta_1, T, seed = seeds[i])
-        # Obtain the results
-        VolumeTimeRes = getVolumeTimeCorrelations(makePrices(0, t[1], t[2]), makePrices(0, t[3], t[4]), domain, T, seeds[i])
-        # Store the results
-        RVVT[i,:] = VolumeTimeRes
-    end
-    return RVVT
-end
-res2 = getRes(reps)
-
-test = []
-for i in 1:6
-    push!(test, res[i])
-end
-push!(test, res2)
-push!(test, res2)
-push!(test, res2)
-
-res = test
 
 ## Obtain the results
 reps = 100
