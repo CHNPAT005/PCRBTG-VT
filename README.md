@@ -7,7 +7,7 @@
 
 ## Link to resources:
 
-Dataset DOI: [10.25375/uct.12315092](https://zivahub.uct.ac.za/articles/Using_the_Epps_effect_to_detect_discrete_data_generating_processes_Dataset/12315092/1)
+Dataset DOI: [10.25375/uct.13258811](http://dx.doi.org/10.25375/uct.13258811)
 
 ## Steps for Replication:
 - Change directories for all the files under [/Scripts](https://github.com/CHNPAT005/PCRBTG-VT/tree/main/Scripts). Currently the directories are set as: `cd("/Users/patrickchang1/PCEPTG-VT")`. Change this to where you have stored the repository. 
