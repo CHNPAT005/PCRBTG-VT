@@ -218,3 +218,23 @@ hline!(res[3]', palette = ColorSchemes.tab10.colors, label = pairnames)
 xlabel!(L"\textrm{Sampling interval (event time)}")
 ylabel!(L"\tilde{\rho}_{\Delta t}^{ij}")
 savefig("Plots/EmpETHY.svg")
+
+## Obtain the results for appendix
+# Read in the data
+prices = CSV.read("Real Data/JSE_prices_2019-06-24_2019-06-28.csv", DataFrame)
+times = CSV.read("Real Data/JSE_times_2019-06-24_2019-06-28.csv", DataFrame)
+volume = CSV.read("Real Data/JSE_volume_2019-06-24_2019-06-28.csv", DataFrame)
+
+# Remove extra column
+prices = prices[:,2:end]; times = times[:,2:end]; volume = volume[:,2:end]
+# Pull out banking stocks
+prices = prices[:,[1;3;6;7]]; times = times[:,[1;3;6;7]]; volume = volume[:,[1;3;6;7]]
+# Get the names of tickers
+tickers = names(prices)
+
+res = getETcorrs(tickers)
+
+# Save results
+save("Computed Data/EmpAppETMM.jld", "res", res[1])
+save("Computed Data/EmpAppETRV.jld", "res", res[2])
+save("Computed Data/EmpAppETHY.jld", "res", res[3])
